@@ -1,3 +1,5 @@
+import tkinter as tk
+
 dict = {}
 
 def create_dict(ppl) : 
