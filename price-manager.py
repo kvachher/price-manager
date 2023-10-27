@@ -4,9 +4,8 @@ def create_dict(ppl) :
     for p in ppl : 
         dict[p] = 0
 
-def refresh_prices(ppl) : 
-    for p in ppl : 
-        dict[p] = 0
+def refresh_prices() : 
+    dict.clear()
 
 def det_split(price, splitters) : 
     per_person = price / len(splitters)
