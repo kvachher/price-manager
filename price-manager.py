@@ -1,33 +1,49 @@
 import tkinter as tk
 
-dict = {}
+class gui : 
+    def __init__(self): 
+            self.root = tk.Tk()
+            self.label = tk.Label(self.root, text = "Enter the people splitting here, seperated by commas.", font = ('Arial', 18))
+            self.label.pack(padx = 10, pady = 10)
 
-def create_dict(ppl) : 
-    for p in ppl : 
-        dict[p] = 0
+            self.textbox = tk.Text(self.root, font = ('Arial', 16), height = 2)
+            self.textbox.pack(padx = 10, pady = 10)
 
-def refresh_prices() : 
-    dict.clear()
+            self.label = tk.Label(self.root, text = "Enter the price below. Exclude any currency markers.", font = ('Arial', 16))
+            self.label.pack(padx = 10, pady = 10)
 
-def det_split(price, splitters) : 
-    per_person = price / len(splitters)
-    for p in dict : 
-        dict[p] += per_person
+            self.myentry = tk.Entry(self.root)
+            self.myentry.pack(padx = 10)
 
-def print_results() : 
-    for d in dict: 
-        print(f'{d} owes {str(dict[d])}')
+            self.button = tk.Button(self.root, text = "Calculate", font = ('Arial', 16), command = self.calculate)
+            self.button.pack(padx = 10, pady = 10)
 
-## sample usage - first create list of people splitting
-l = ["kush", "om", "kaushal", "mit"]
+            self.res = tk.Text(self.root, font = ('Arial', 16))
+            self.res.pack(padx = 10, pady = 10)
 
-## call 'create_dict' -> this will keep track of prices
-create_dict(l)
+            self.root.mainloop()
 
-## create a list of people splitting an item - let's say all four of us are splitting eggs
-egg_splitters = l # set it to same list as all roommates
+    def calculate(self) : 
+        ppl = self.textbox.get("1.0", tk.END).strip().split(",")
+        price = float(self.myentry.get())
+        ans_dict = self.det_split(price, ppl)
+        self.print_results(ans_dict)
 
-## call det_split to fix prices. enter egg price here as well.
-det_split(5, egg_splitters)
 
-print_results()
+    def det_split(self, price, splitters) : 
+        ans_dict = {}
+        per_person = price / len(splitters)
+        for s in splitters : 
+            ans_dict[s.lower()] = ans_dict.get(s.lower(), 0) + per_person
+        return ans_dict
+
+    def print_results(self, dic) : 
+        self.res.delete("1.0", tk.END)
+        self.res.insert(tk.END, "Results:\n")
+        for d in dic: 
+            self.res.insert(tk.END, f'{d} owes {str(dic[d])}\n')
+
+
+if __name__ == "__main__":
+    my_gui = gui()
+
