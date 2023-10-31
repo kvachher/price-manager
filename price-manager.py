@@ -1,7 +1,10 @@
 import tkinter as tk
 
+ans_dict = {}
+
 class gui : 
     def __init__(self): 
+            ans_dict.clear()
             self.root = tk.Tk()
             self.label = tk.Label(self.root, text = "Enter the people splitting here, seperated by commas.", font = ('Arial', 18))
             self.label.pack(padx = 10, pady = 10)
@@ -26,23 +29,21 @@ class gui :
     def calculate(self) : 
         ppl = self.textbox.get("1.0", tk.END).strip().split(",")
         price = float(self.myentry.get())
-        ans_dict = self.det_split(price, ppl)
-        self.print_results(ans_dict)
+        self.det_split(price, ppl)
+        self.print_results()
 
 
     def det_split(self, price, splitters) : 
-        ans_dict = {}
         per_person = price / len(splitters)
         for s in splitters : 
+            s = s.strip()
             ans_dict[s.lower()] = ans_dict.get(s.lower(), 0) + per_person
-        return ans_dict
 
-    def print_results(self, dic) : 
+    def print_results(self) : 
         self.res.delete("1.0", tk.END)
         self.res.insert(tk.END, "Results:\n")
-        for d in dic: 
-            self.res.insert(tk.END, f'{d} owes {str(dic[d])}\n')
-
+        for d in ans_dict: 
+            self.res.insert(tk.END, f'{d} owes {str(ans_dict[d])}\n')
 
 if __name__ == "__main__":
     my_gui = gui()
