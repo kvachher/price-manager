@@ -1,2 +1,3 @@
 # Grocery price manager
-###### Built in order to save my roommates time
+###### Simple Python program w/GUI built using TKInter 
+###### Built to help my roommates split grocery prices.
