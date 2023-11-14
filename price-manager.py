@@ -2,8 +2,8 @@ import tkinter as tk
 
 ans_dict = {}
 
-class gui : 
-    def __init__(self): 
+class gui:
+    def __init__(self):
             ans_dict.clear()
             self.root = tk.Tk()
             self.label = tk.Label(self.root, text = "Enter the people splitting here, seperated by commas.", font = ('Arial', 18))
@@ -37,7 +37,7 @@ class gui :
         per_person = price / len(splitters)
         for s in splitters : 
             s = s.strip()
-            ans_dict[s.lower()] = ans_dict.get(s.lower(), 0) + per_person
+            ans_dict[s.upper()] = ans_dict.get(s.upper(), 0) + per_person
 
     def print_results(self) : 
         self.res.delete("1.0", tk.END)
